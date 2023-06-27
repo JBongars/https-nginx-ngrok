@@ -1,7 +1,7 @@
 
 FROM alpine:3.17.2
 
-RUN apk add curl tar bash
+RUN apk add curl tar bash dos2unix
 
 WORKDIR /ngrok
 
@@ -11,5 +11,6 @@ RUN mv ngrok /usr/local/bin && chmod +x /usr/local/bin/ngrok
 RUN rm ngrok.tgz
 
 COPY ./entrypoint.sh /ngrok/entrypoint.sh
+RUN chmod +x /ngrok/entrypoint.sh && dos2unix /ngrok/entrypoint.sh
 
 CMD ["/ngrok/entrypoint.sh"]

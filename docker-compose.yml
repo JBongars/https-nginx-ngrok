@@ -12,7 +12,10 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
       
   ngrok:
-    image: julien23/dtools_ngrok:1.6.0
+    # image: julien23/dtools_ngrok:1.6.0
+    build:
+      context: ./ngrok
+      dockerfile: Dockerfile
     network_mode: "host"
     environment:
       - NGROK_PROTOCOL=https

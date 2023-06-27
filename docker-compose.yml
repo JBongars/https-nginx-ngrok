@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./src:/usr/share/nginx/html/www.helloworld.com
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      
+  ngrok:
+    image: julien23/dtools_ngrok:1.6.0
+    network_mode: "host"
+    environment:
+      - NGROK_PROTOCOL=https
+      - NGROK_PORT=443
+      - NGROK_REGION=ap
+      - NGROK_TOKEN=${NGROK_TOKEN}
+    ports:
+      - "4040:4040"
+    depends_on:
+      - web
+
